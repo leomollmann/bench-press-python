@@ -3,3 +3,4 @@ openai
 flask
 flask_cors
 functools
+python-dotenv
