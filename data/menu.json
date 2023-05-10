@@ -1,62 +1,68 @@
 {
-  "description": "This is the hotel menu, we can make these dishes at any time to be delivered to the room, each item can be added multiple times and have their properties listed.",
-  "currency": "USD",
-  "drinks": [
-    {
-      "names": ["Coke", "Coca-Cola"],
-      "description": "Coke is the most popular carbonated soft drink, can be served together with any meal",
-      "price": 2,
-      "amount": "300ml",
-      "extras": ["ice", "lemon"]
-    },
-    {
-      "names": ["Juice", "Natural Fruit Juice", "Fruit Juice"],
-      "description": "Squeezed or processed fruit juices made with natural seasonal fruits, perfect choice to go together with a main salty dish for contrast in flavors.",
-      "price": 3.5,
-      "amount": "400ml",
-      "flavors": ["orange", "grape", "apple", "pineapple"],
-      "extras": ["ice", "sugar", "swetneer"]
-    }
-  ],
-  "main_dishes": [
-    {
-      "names": ["Pan-Seared Salmon", "Fish"],
-      "description": "A succulent fillet of Atlantic salmon, pan-seared to perfection and served with a bed of wild rice pilaf and roasted asparagus spears.",
-      "serving": "2 adults",
-      "price": 40,
-      "amount": "500mg",
-      "calories": "600 kcals",
-      "dietaryRestriction": ["pescetarian", "gluten free"],
-      "extras": ["ice", "sugar", "swetneer"]
-    },
-    {
-      "names": ["Grilled Ribeye Steak", "Beef"],
-      "description": "A juicy and tender 10-ounce ribeye steak, seasoned to perfection with our house blend of herbs and spices, and grilled to your desired level of doneness. Served with a side of garlic mashed potatoes and sautéed green beans with almonds.",
-      "serving": "2 adults",
-      "amount": "800mg",
-      "price": 50,
-      "calories": "1400 kcals",
-      "dietaryRestriction": ["gluten free"]
-    },
-    {
-      "names": ["Mushroom Risotto", "Risotto"],
-      "description": "A creamy and savory risotto made with Arborio rice, sautéed mushrooms, white wine, vegetable broth, and finished with a touch of vegan parmesan cheese and fresh herbs. Served with a side of roasted root vegetables, including carrots, beets, and sweet potatoes.",
-      "serving": "1 adult",
-      "amount": "300mg",
-      "price": 30,
-      "calories": "500 kcals",
-      "dietaryRestriction": ["gluten free", "vegetarian", "vegan"]
-    }
-  ],
-  "side_dishes": [
-    {
-      "names": ["Mushroom Risotto", "Risotto"],
-      "description": "Grilled bread with garlic paste sauce, the most popular choice for a side dish",
-      "serving": "2 adults",
-      "amount": "400mg",
-      "price": 14,
-      "calories": "800 kcals",
-      "dietaryRestriction": ["vegetarian"]
-    }
-  ]
+  "prompt": {
+    "role": "system",
+    "content": "If they request one item of the menu, remember that choice, confirm solely the name of the item and ask if they want something to drink. For luch or dinner recomend the full course meal with a main dish, side dish and drink. When giving the drinks options, show them as a list, not as a text. If they pick a drink, add the prices of the meal and the drink and return the total amount. If they did not pick a drink, the total amount is solely the price of meal. If they request their total expenses, the response should solely be a list. The list should include the value of hotel stay and all the services that were requested. When giving the value of the hotel stay, explicit say how many nights are being charged for. At the end of the list, show the total amount. Now answer the user in natural language with this provided menu data in JSON format:"
+  },
+  "data": {
+    "description": "This is the hotel menu, we can make these dishes at any time to be delivered to the room, each item can be added multiple times and have their properties listed.",
+    "currency": "USD",
+    "drinks": [
+      {
+        "names": ["Coke", "Coca-Cola"],
+        "description": "Coke is the most popular carbonated soft drink, can be served together with any meal",
+        "price": 2,
+        "amount": "300ml",
+        "extras": ["ice", "lemon"]
+      },
+      {
+        "names": ["Juice", "Natural Fruit Juice", "Fruit Juice"],
+        "description": "Squeezed or processed fruit juices made with natural seasonal fruits, perfect choice to go together with a main salty dish for contrast in flavors.",
+        "price": 3.5,
+        "amount": "400ml",
+        "flavors": ["orange", "grape", "apple", "pineapple"],
+        "extras": ["ice", "sugar", "swetneer"]
+      }
+    ],
+    "main_dishes": [
+      {
+        "names": ["Pan-Seared Salmon", "Fish"],
+        "description": "A succulent fillet of Atlantic salmon, pan-seared to perfection and served with a bed of wild rice pilaf and roasted asparagus spears.",
+        "serving": "2 adults",
+        "price": 40,
+        "amount": "500mg",
+        "calories": "600 kcals",
+        "dietaryRestriction": ["pescetarian", "gluten free"],
+        "extras": ["ice", "sugar", "swetneer"]
+      },
+      {
+        "names": ["Grilled Ribeye Steak", "Beef"],
+        "description": "A juicy and tender 10-ounce ribeye steak, seasoned to perfection with our house blend of herbs and spices, and grilled to your desired level of doneness. Served with a side of garlic mashed potatoes and sautéed green beans with almonds.",
+        "serving": "2 adults",
+        "amount": "800mg",
+        "price": 50,
+        "calories": "1400 kcals",
+        "dietaryRestriction": ["gluten free"]
+      },
+      {
+        "names": ["Mushroom Risotto", "Risotto"],
+        "description": "A creamy and savory risotto made with Arborio rice, sautéed mushrooms, white wine, vegetable broth, and finished with a touch of vegan parmesan cheese and fresh herbs. Served with a side of roasted root vegetables, including carrots, beets, and sweet potatoes.",
+        "serving": "1 adult",
+        "amount": "300mg",
+        "price": 30,
+        "calories": "500 kcals",
+        "dietaryRestriction": ["gluten free", "vegetarian", "vegan"]
+      }
+    ],
+    "side_dishes": [
+      {
+        "names": ["Mushroom Risotto", "Risotto"],
+        "description": "Grilled bread with garlic paste sauce, the most popular choice for a side dish",
+        "serving": "2 adults",
+        "amount": "400mg",
+        "price": 14,
+        "calories": "800 kcals",
+        "dietaryRestriction": ["vegetarian"]
+      }
+    ]
+  }
 }

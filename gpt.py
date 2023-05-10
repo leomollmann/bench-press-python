@@ -38,17 +38,37 @@ class ChatApp:
 
     messages.append({"role": "user", "content": message})
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
+      model="gpt-3.5-turbo",
+      messages=messages
     )
+    response = response["choices"][0]["message"]
+
     messages.append({
       "role": "assistant", 
-      "content": response["choices"][0]["message"].content
+      "content": response.content
     })
+
+    if response.content[:11] == 'system:menu':
+      menu = {}
+      with open(f"./data/menu.json") as json_file:
+        menu = json.load(json_file)
+
+      menu['prompt']['content'] += json.dumps(menu['data'])
+
+      messages.append(menu['prompt'])
+      response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=messages
+      )
+      response = response["choices"][0]["message"]
+
+      messages.append({
+        "role": "assistant", 
+        "content": response.content
+      })
 
     with open(f'./users/{user}.json', 'w') as outfile:
       json.dump(messages, outfile)
 
-    return response["choices"][0]["message"].content
-  
+    return response.content
 chat_gpt_repository = ChatApp()
