@@ -1,11 +1,26 @@
 import os
 import json
 import openai
+import tiktoken
 import re
 
 def is_menu_like(message):
   pattern = re.compile(f"{{menu}}")
   return pattern.search(message) is not None
+
+def num_tokens_from_messages(messages):
+  """Returns the number of tokens used by a list of messages."""
+  encoding = tiktoken.encoding_for_model("gpt-3.5-turbo-0301")
+
+  tokens_per_message = 4  # every message follows <|start|>{role/name}\n{content}<|end|>\n
+
+  num_tokens = 0
+  for message in messages:
+      num_tokens += tokens_per_message
+      num_tokens += len(encoding.encode(message['content']))
+
+  num_tokens += 3  # every reply is primed with <|start|>assistant<|message|>
+  return num_tokens
 
 class ChatApp:
   def __init__(self):
@@ -14,11 +29,11 @@ class ChatApp:
       self.initial_prompt = json.load(json_file)
     with open(f"./data/menu.json") as json_file:
       self.menu = json.load(json_file)
-      self.menu['prompt']['content'] += json.dumps(self.menu['data'])
+      self.menu['data_prompt']['content'] += json.dumps(self.menu['data'])
 
   def continue_conversation(self, messages):
     response = openai.ChatCompletion.create(
-      model="gpt-3.5-turbo",
+      model="gpt-3.5-turbo-0301",
       messages=[{ 'role': x['role'], 'content': x['content'] } for x in messages],
       temperature=0.3
     )
@@ -44,7 +59,8 @@ class ChatApp:
       "internal": True
     })
 
-    messages.append(self.menu['prompt'])
+    messages.append(self.menu['instruction_prompt'])
+    messages.append(self.menu['data_prompt'])
     response = self.continue_conversation(messages)
     (message, data) = self.embed_items(response.content)
 
@@ -68,6 +84,13 @@ class ChatApp:
       json.dump(messages, outfile)
     with open(f"./users/{data['name']}-data.json", 'w') as outfile:
       json.dump(data, outfile)
+
+  def get_token_count(self, user):
+    messages = []
+    with open(f"./users/{user}.json") as json_file:
+      messages = json.load(json_file)
+
+    return num_tokens_from_messages(messages)
 
   def get_hisotry(self, user):
     messages = []

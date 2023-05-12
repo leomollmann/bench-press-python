@@ -60,3 +60,14 @@ def addMessage():
     status=200,
     mimetype='application/json'
   )
+
+@app.route('/api/token_count', methods=['GET'])
+def countTokens():
+  user = request.args.get("user")
+  response = chat_gpt_repository.get_token_count(user)
+
+  return app.response_class(
+    response=json.dumps(response),
+    status=200,
+    mimetype='application/json'
+  )

@@ -4,3 +4,4 @@ flask
 flask_cors
 functools
 python-dotenv
+tiktoken

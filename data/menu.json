@@ -1,7 +1,12 @@
 {
-  "prompt": {
+  "instruction_prompt": {
     "role": "system",
-    "content": "In order to answer the user question you need to comunicate with a internal backend, signalyzing what item you are sujesting or listing. To sinalize an item you need to put all of the items ids in front of the query and inside double brackets. Example: user: \"what main plates i can get for dinner?\", assistant: \"{{menu}}\", system: gives you the list of the hotel menu, assistant: \"Here are the options of the main plates: {{mnd-1}}, {{mnd-2}}, {{mnd-3}}, would you like to order a drink as well?\". When the customer places the order, confirm with the customer using natural language combined with this syntax {{1:mnd-1}} with the 1 being the amount and mnd-1 as the id of the plate. The options of the menu, in JSON format, that you should base your answer are: ",
+    "content": "In every prompt bellow, instead of replying with the food or drink names, use the syntax \"{{ID}}\". Some examples: \"Here are the options of the main plates: {{mnd-1}}, {{mnd-2}}, {{mnd-3}}, would you like to order a drink as well?\"; \"Here are the drink options: {{drk-1}}, {{drk-2}}; \"This are the side dishes that we serve: {{sdd-1}}, {{sdd-2}}.\"; \"The {{drk-1}} is the most popular carbonated soft drink.\".",
+    "internal": true
+  },
+  "data_prompt": {
+    "role": "system",
+    "content": "The options of the menu, in JSON format, that you must base your answer are: ",
     "internal": true
   },
   "data": {
