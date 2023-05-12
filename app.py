@@ -1,4 +1,3 @@
-from datetime import datetime
 from functools import wraps
 from flask import Flask, abort, json, request
 from flask_cors import CORS
@@ -26,7 +25,8 @@ def createUser():
     'name': user['name'],
     'checkin': user['checkin'],
     'checkout': user['checkout'],
-    'bill': user['bill']
+    'bill': user['bill'],
+    'room': user['room']
   })
 
   return app.response_class(
@@ -34,13 +34,17 @@ def createUser():
     mimetype='application/json'
   )
 
-@app.route('/api/get_history', methods=['GET'])
-def getHistory(): 
+@app.route('/api/get_user', methods=['GET'])
+def getUser():
   user = request.args.get("user")
+  data = chat_gpt_repository.get_user(user)
   history = chat_gpt_repository.get_hisotry(user)
   
   return app.response_class(
-    response=json.dumps(history),
+    response=json.dumps({
+      'user': data,
+      'history': history
+    }),
     status=200,
     mimetype='application/json'
   )
